@@ -1,0 +1,17 @@
+# Notas y documentación del proyecto
+/notas/
+
+# Archivos de base de datos
+*.sql
+
+# Archivos temporales
+*.tmp
+*.log
+
+# Configuración de IDE
+.vscode/
+.idea/
+
+# Archivos compilados de Maven
+target/
+
