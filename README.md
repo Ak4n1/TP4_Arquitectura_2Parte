@@ -26,8 +26,13 @@ Ademas en el application.properties hay una opcion para activar o desactivar un 
 
 ### Roles
 
-El proyecto cuenta con 3 roles`ROLE_USER`, `ROLE_EMPLOYEE` y `ROLE_ADMIN` pero como en la primera parte no hay que usar JWT, ni autenticacion ni autorizacion (Para generar el token) simplemente especifican el rol del usuario. No validan nada. Ademas los roles se crean automaticamente si no existen al correr la aplicacion.
+El proyecto cuenta con 3 roles según el TP:
 
+- **`ROLE_USER`**: Usuarios del servicio que utilizan la aplicación móvil para alquilar monopatines.
+
+- **`ROLE_EMPLOYEE`**: Encargados de Mantenimiento de monopatines.
+
+- **`ROLE_ADMIN`**: Administrador del sistema.
 
 ### Urls
 
@@ -52,8 +57,10 @@ https://tp3777.postman.co/workspace/TP4_Arquitectura_1Parte~d658834b-273a-4759-b
 
 ### Comunicacion entre servicios
 
-## Endpoint Register /api/auth/register
-#Este endpoint (Register) utiliza el servicio accounts-services para crear un usuario. La contraseña ya se le envia hasheada a accounts-service
+#### Endpoint Register /api/auth/register
+Este endpoint (Register) se comunica con el servicio [accounts-service](accounts-services/) para registrar un usuario ya que este ultimo gestiona cuentas y usuarios.
+
+**Nota:** En auth-service existen dos DTOs con los mismos atributos (RegisterRequest y CreateUserRequest). RegisterRequest es el que se utiliza del lado del cliente, tiene validaciones (@NotBlank, @Email) y recibe la contraseña en texto plano. CreateUserRequest se envía a accounts-service con la contraseña ya hasheada y tiene el mismo nombre que el DTO de accounts-service para mantener compatibilidad en la comunicación entre servicios. Esta separación permite mantener la responsabilidad de validación en auth-service mientras se respeta el contrato esperado por accounts-service.
 
 <div align="center">
   <img src="screenshots/diagrama_comunicacion_register.png" alt="Diagrama de Clases" />
