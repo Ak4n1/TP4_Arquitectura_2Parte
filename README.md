@@ -49,6 +49,16 @@ https://tp3777.postman.co/workspace/TP4_Arquitectura_1Parte~d658834b-273a-4759-b
 
  [README de Accounts Service](accounts-services/README.md).
 
+
+### Comunicacion entre servicios
+
+## Endpoint Register /api/auth/register
+#Este endpoint (Register) utiliza el servicio accounts-services para crear un usuario. La contraseña ya se le envia hasheada a accounts-service
+
+<div align="center">
+  <img src="screenshots/diagrama_comunicacion_register.png" alt="Diagrama de Clases" />
+</div>
+
 ### Diagrama de clase de entidades
 
 <div align="center">
