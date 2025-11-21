@@ -25,7 +25,7 @@ public class AccountController {
     private AccountService accountService;
 
     @Operation(
-        summary = "Crear cuenta",
+        summary = "Crear cuenta - Requiere: ROLE_USER o ROLE_ADMIN",
         description = "Crea una nueva cuenta asociada a una cuenta de Mercado Pago."
     )
     @PostMapping
@@ -36,7 +36,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Obtener cuenta por ID",
+        summary = "Obtener cuenta por ID - Requiere: ROLE_USER, ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Obtiene los datos de una cuenta por su identificador unico."
     )
     @GetMapping("/{id}")
@@ -46,7 +46,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Obtener todas las cuentas",
+        summary = "Obtener todas las cuentas - Requiere: ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna la lista completa de cuentas del sistema."
     )
     @GetMapping
@@ -56,7 +56,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Obtener cuentas activas",
+        summary = "Obtener cuentas activas - Requiere: ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna unicamente las cuentas que estan activas (no anuladas)."
     )
     @GetMapping("/active")
@@ -66,7 +66,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Actualizar cuenta",
+        summary = "Actualizar cuenta - Requiere: ROLE_ADMIN",
         description = "Actualiza los datos de una cuenta existente."
     )
     @PutMapping("/{id}")
@@ -78,7 +78,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Anular o reactivar cuenta",
+        summary = "Anular o reactivar cuenta - Requiere: ROLE_ADMIN",
         description = "Anula o reactiva una cuenta dinámicamente. Si la cuenta está activa, la anula. Si está anulada, la reactiva."
     )
     @PutMapping("/{id}/toggle_status")
@@ -88,7 +88,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Cargar saldo a cuenta",
+        summary = "Cargar saldo a cuenta - Requiere: ROLE_USER o ROLE_ADMIN",
         description = "Incrementa el saldo actual de la cuenta con el monto especificado."
     )
     @PutMapping("/{id}/balance")
@@ -100,7 +100,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Obtener saldo de cuenta",
+        summary = "Obtener saldo de cuenta - Requiere: ROLE_USER, ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna el saldo actual de una cuenta."
     )
     @GetMapping("/{id}/balance")
@@ -110,7 +110,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Descontar saldo de cuenta",
+        summary = "Descontar saldo de cuenta - Requiere: ROLE_ADMIN",
         description = "Descuenta un monto del saldo de una cuenta. Se utiliza cuando se activa un monopatin o se finaliza un viaje."
     )
     @PutMapping("/{id}/balance/deduct")
@@ -122,7 +122,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Verificar si cuenta esta activa",
+        summary = "Verificar si cuenta esta activa - Requiere: ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna un JSON con el estado de la cuenta (status: true/false) y el ID de la cuenta. Usado por otros microservicios."
     )
     @GetMapping("/{id}/active")
@@ -132,7 +132,7 @@ public class AccountController {
     }
 
     @Operation(
-        summary = "Eliminar cuenta",
+        summary = "Eliminar cuenta - Requiere: ROLE_ADMIN",
         description = "Elimina una cuenta del sistema permanentemente."
     )
     @DeleteMapping("/{id}")

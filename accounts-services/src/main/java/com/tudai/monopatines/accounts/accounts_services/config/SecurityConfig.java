@@ -43,37 +43,39 @@ public class SecurityConfig {
                 .accessDeniedHandler(jwtAccessDeniedHandler)
             )
             .authorizeHttpRequests(auth -> auth
-                // Endpoints públicos necesarios para login y register (usados por auth-service)
-                .requestMatchers(HttpMethod.POST, "/api/accounts/users/validate-password").permitAll() // Para login
-                .requestMatchers(HttpMethod.POST, "/api/accounts/users").permitAll() // Para register
-                .requestMatchers(HttpMethod.GET, "/api/accounts/users").permitAll() // Para login (obtener usuario por email)
                 
-                // ROLE_ADMIN - Gestión completa
-                .requestMatchers(HttpMethod.POST, "/api/accounts").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/accounts/{id}").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/toggle_status").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/balance/deduct").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/accounts/associate").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/accounts/disassociate").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/users/all").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/accounts/users/{id}").hasRole("ADMIN")
+                // Endpoints publicos - Swagger UI
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/index.html").permitAll()
                 
-                // ROLE_EMPLOYEE - Lectura amplia
-                .requestMatchers(HttpMethod.GET, "/api/accounts").hasAnyRole("EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/active").hasAnyRole("EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}/balance").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/{accountId}/users").hasAnyRole("EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/users/{id}").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}/active").hasAnyRole("EMPLOYEE", "ADMIN") // Para otros microservicios
+                // Endpoints publicos - Autenticacion
+                .requestMatchers(HttpMethod.POST, "/api/accounts/users/validate-password").permitAll() 
+                .requestMatchers(HttpMethod.POST, "/api/accounts/users").permitAll() 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/users").permitAll()
                 
-                // ROLE_USER - Sus propios recursos
-                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/balance").hasAnyRole("USER", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/accounts/users/{userId}/accounts").hasAnyRole("USER", "EMPLOYEE", "ADMIN")
+                // ROLE_ADMIN 
+                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.DELETE, "/api/accounts/{id}").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/toggle_status").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/balance/deduct").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.POST, "/api/accounts/associate").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.POST, "/api/accounts/disassociate").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/users/all").hasRole("ADMIN") 
+                .requestMatchers(HttpMethod.PUT, "/api/accounts/users/{id}").hasRole("ADMIN") 
+                // ROLE_EMPLOYEE 
+                .requestMatchers(HttpMethod.GET, "/api/accounts").hasAnyRole("EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/active").hasAnyRole("EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}").hasAnyRole("USER", "EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/{accountId}/users").hasAnyRole("EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}/active").hasAnyRole("EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/users/{id}").hasAnyRole("USER", "EMPLOYEE", "ADMIN") 
                 
-                // Todos los demás endpoints requieren autenticación
-                .anyRequest().authenticated()
+                // ROLE_USER - 
+                .requestMatchers(HttpMethod.POST, "/api/accounts").hasAnyRole("USER", "ADMIN") 
+                .requestMatchers(HttpMethod.PUT, "/api/accounts/{id}/balance").hasAnyRole("USER", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/{id}/balance").hasAnyRole("USER", "EMPLOYEE", "ADMIN") 
+                .requestMatchers(HttpMethod.GET, "/api/accounts/users/{userId}/accounts").hasAnyRole("USER", "EMPLOYEE", "ADMIN") 
+                
+      
             );
 
         return http.build();

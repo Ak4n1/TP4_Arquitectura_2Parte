@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @Operation(
-        summary = "Crear un nuevo usuario",
+        summary = "Crear un nuevo usuario - Endpoint público (no requiere autenticación)",
         description = "Crea un nuevo usuario en el sistema. El password debe venir hasheado desde auth-service. Se asigna ROLE_USER por defecto."
     )
     @PostMapping
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Obtener usuario por ID",
+        summary = "Obtener usuario por ID - Requiere: ROLE_USER, ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Obtiene los datos de un usuario incluyendo sus roles asignados."
     )
     @GetMapping("/{id}")
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Obtener usuario por email",
+        summary = "Obtener usuario por email - Endpoint público (no requiere autenticación)",
         description = "Obtiene los datos de un usuario por su email (unico en el sistema) incluyendo sus roles."
     )
     @GetMapping
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Obtener todos los usuarios",
+        summary = "Obtener todos los usuarios - Requiere: ROLE_ADMIN",
         description = "Retorna la lista completa de usuarios del sistema, incluyendo sus roles asignados."
     )
     @GetMapping("/all")
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Actualizar usuario",
+        summary = "Actualizar usuario - Requiere: ROLE_ADMIN",
         description = "Actualiza los datos de un usuario existente. No incluye password (se cambia desde auth-service)."
     )
     @PutMapping("/{id}")
@@ -77,7 +77,7 @@ public class UserController {
     }
 
     @Operation(
-        summary = "Validar password",
+        summary = "Validar password - Endpoint público (no requiere autenticación)",
         description = "Valida el password de un usuario. Usado por auth-service para login."
     )
     @PostMapping("/validate-password")

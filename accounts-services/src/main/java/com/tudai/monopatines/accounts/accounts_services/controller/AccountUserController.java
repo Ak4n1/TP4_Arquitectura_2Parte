@@ -22,7 +22,7 @@ public class AccountUserController {
     private AccountUserService accountUserService;
 
     @Operation(
-        summary = "Asociar usuario a cuenta",
+        summary = "Asociar usuario a cuenta - Requiere: ROLE_ADMIN",
         description = "Crea una relacion entre una cuenta y un usuario, permitiendo que el usuario utilice los creditos cargados en esa cuenta."
     )
     @PostMapping("/associate")
@@ -33,7 +33,7 @@ public class AccountUserController {
     }
 
     @Operation(
-        summary = "Desasociar usuario de cuenta",
+        summary = "Desasociar usuario de cuenta - Requiere: ROLE_ADMIN",
         description = "Elimina la relacion entre una cuenta y un usuario, impidiendo que el usuario utilice los creditos de esa cuenta."
     )
     @PostMapping("/disassociate")
@@ -44,7 +44,7 @@ public class AccountUserController {
     }
 
     @Operation(
-        summary = "Obtener usuarios de una cuenta",
+        summary = "Obtener usuarios de una cuenta - Requiere: ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna la lista de usuarios asociados a una cuenta, incluyendo sus roles asignados."
     )
     @GetMapping("/{accountId}/users")
@@ -54,7 +54,7 @@ public class AccountUserController {
     }
 
     @Operation(
-        summary = "Obtener cuentas de un usuario",
+        summary = "Obtener cuentas de un usuario - Requiere: ROLE_USER, ROLE_EMPLOYEE o ROLE_ADMIN",
         description = "Retorna la lista de cuentas asociadas a un usuario. Un usuario puede estar asociado a multiples cuentas."
     )
     @GetMapping("/users/{userId}/accounts")

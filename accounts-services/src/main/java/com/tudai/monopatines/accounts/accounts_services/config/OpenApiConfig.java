@@ -4,6 +4,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -31,13 +32,7 @@ public class OpenApiConfig {
                                 "asociar usuarios a cuentas, y administrar roles de usuarios. " +
                                 "Los roles se muestran en las respuestas pero no se validan en la primera parte del TP. " +
                                 "NOTA: Este servicio expone endpoints REST publicos para la primera parte del TP.")
-                        .version("v1.0.0")
-                        .contact(new Contact()
-                                .name("TUDAI - Arquitecturas Web")
-                                .email("encabojuan@gmail.com"))
-                        .license(new License()
-                                .name("Apache 2.0")
-                                .url("https://www.apache.org/licenses/LICENSE-2.0.html")));
+                        .version("v1.0.0"));
     }
 }
 
