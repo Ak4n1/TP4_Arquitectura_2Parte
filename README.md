@@ -66,6 +66,14 @@ Este endpoint (Register) se comunica con el servicio [accounts-service](accounts
   <img src="screenshots/diagrama_comunicacion_register.png" alt="Diagrama de Clases" />
 </div>
 
+<hr>
+### Endpoint Login /api/auth/login
+Este endpoint (Login) se comunica con el servicio [accounts-service](accounts-services/) para autenticar un usuario para generar el token JWT.
+
+<div align="center">
+  <img src="screenshots/diagrama_comunicacion_login.png" alt="Diagrama de Clases" />
+</div>
+
 ### Diagrama de clase de entidades
 
 <div align="center">
