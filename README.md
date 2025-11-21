@@ -38,12 +38,16 @@ El proyecto cuenta con 3 roles según el TP:
 
 - **API Gateway**: http://localhost:8080
 - **Accounts Service**: http://localhost:8081
+- **Auth Service**: http://localhost:8082
 
 
 ### Swagger 
 
-- **A través del API Gateway**: http://localhost:8080/swagger-ui/index.html
-- **Directamente al servicio**: http://localhost:8081/swagger-ui/index.html
+#### Accounts Service
+- ** Swagger URL**: http://localhost:8081/swagger-ui/index.html
+
+#### Auth Service
+- ** Swagger URL**: http://localhost:8082/swagger-ui/swagger-ui/index.html
 
 ### Postman 
 
@@ -67,7 +71,7 @@ Este endpoint (Register) se comunica con el servicio [accounts-service](accounts
 </div>
 
 <hr>
-### Endpoint Login /api/auth/login
+#### Endpoint Login /api/auth/login
 Este endpoint (Login) se comunica con el servicio [accounts-service](accounts-services/) para autenticar un usuario para generar el token JWT.
 
 <div align="center">

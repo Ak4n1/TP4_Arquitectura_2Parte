@@ -22,8 +22,10 @@ public class AuthController {
     private AuthService authService;
 
     @Operation(
-        summary = "Login de usuario",
-        description = "Autentica un usuario y retorna un token JWT"
+        summary = "Login de usuario - Endpoint público (no requiere autenticación)",
+        description = "Autentica un usuario con email y password, y retorna un token JWT. " +
+                "El token incluye el userId y los roles del usuario. " +
+                "Este endpoint valida las credenciales llamando a accounts-service."
     )
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
@@ -32,8 +34,10 @@ public class AuthController {
     }
 
     @Operation(
-        summary = "Registro de usuario",
-        description = "Registra un nuevo usuario en el sistema. El password se hashea automáticamente."
+        summary = "Registro de usuario - Endpoint público (no requiere autenticación)",
+        description = "Registra un nuevo usuario en el sistema. El password se hashea automáticamente " +
+                "antes de enviarlo a accounts-service. El usuario creado recibe el rol ROLE_USER por defecto. " +
+                "Este endpoint crea el usuario llamando a accounts-service."
     )
     @PostMapping("/register")
     public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterRequest request) {
