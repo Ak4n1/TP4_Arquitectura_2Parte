@@ -3,12 +3,14 @@ package com.tudai.monopatines.accounts.accounts_services.service;
 import com.tudai.monopatines.accounts.accounts_services.dto.CreateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UpdateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UserResponse;
+import com.tudai.monopatines.accounts.accounts_services.dto.ValidatePasswordRequest;
 import com.tudai.monopatines.accounts.accounts_services.entity.User;
 import com.tudai.monopatines.accounts.accounts_services.exception.UserAlreadyExistsException;
 import com.tudai.monopatines.accounts.accounts_services.exception.UserNotFoundException;
 import com.tudai.monopatines.accounts.accounts_services.repository.UserRepository;
 import com.tudai.monopatines.accounts.accounts_services.util.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +32,9 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * {@inheritDoc}
@@ -166,5 +171,25 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * Implementación: Busca el usuario por email y valida el password comparándolo
+     * con el hash almacenado en la base de datos usando BCrypt.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public boolean validatePassword(ValidatePasswordRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User with email " + request.getEmail() + " not found");
+        }
+        
+        User user = userOptional.get();
+        String hashedPassword = user.getPassword();
+        
+        // Comparar password con el hash almacenado
+        return passwordEncoder.matches(request.getPassword(), hashedPassword);
+    }
 }
 

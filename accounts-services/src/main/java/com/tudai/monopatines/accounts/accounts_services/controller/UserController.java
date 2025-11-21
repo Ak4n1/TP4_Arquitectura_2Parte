@@ -3,6 +3,7 @@ package com.tudai.monopatines.accounts.accounts_services.controller;
 import com.tudai.monopatines.accounts.accounts_services.dto.CreateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UpdateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UserResponse;
+import com.tudai.monopatines.accounts.accounts_services.dto.ValidatePasswordRequest;
 import com.tudai.monopatines.accounts.accounts_services.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -73,6 +74,17 @@ public class UserController {
         @Valid @RequestBody UpdateUserRequest request) {
         UserResponse response = userService.updateUser(id, request);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(
+        summary = "Validar password",
+        description = "Valida el password de un usuario. Usado por auth-service para login."
+    )
+    @PostMapping("/validate-password")
+    public ResponseEntity<Boolean> validatePassword(
+        @Valid @RequestBody ValidatePasswordRequest request) {
+        boolean isValid = userService.validatePassword(request);
+        return ResponseEntity.ok(isValid);
     }
 }
 

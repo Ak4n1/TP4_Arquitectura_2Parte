@@ -3,6 +3,7 @@ package com.tudai.monopatines.accounts.accounts_services.service;
 import com.tudai.monopatines.accounts.accounts_services.dto.CreateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UpdateUserRequest;
 import com.tudai.monopatines.accounts.accounts_services.dto.UserResponse;
+import com.tudai.monopatines.accounts.accounts_services.dto.ValidatePasswordRequest;
 
 import java.util.List;
 
@@ -58,5 +59,14 @@ public interface UserService {
      * @throws UserAlreadyExistsException si el nuevo email ya existe
      */
     UserResponse updateUser(Long id, UpdateUserRequest request);
+
+    /**
+     * Valida el password de un usuario.
+     * 
+     * @param request ValidatePasswordRequest con email y password
+     * @return true si el password es válido, false en caso contrario
+     * @throws UserNotFoundException si no se encuentra el usuario
+     */
+    boolean validatePassword(ValidatePasswordRequest request);
 }
 

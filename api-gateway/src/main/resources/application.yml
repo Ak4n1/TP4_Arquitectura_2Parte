@@ -7,6 +7,12 @@ spring:
   cloud:
     gateway:
       routes:
+        # Auth Service Routes
+        - id: auth-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/auth/**
+
         # Accounts Service Routes
         - id: accounts-service
           uri: http://localhost:8081
