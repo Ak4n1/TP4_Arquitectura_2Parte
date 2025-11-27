@@ -1,11 +1,11 @@
-# TP4 Arquitectura - Primera Parte
+# TP4 Arquitectura - Segunda Parte
 
 ### Integrantes 
 
-Grupo 3: Juan Encabo & Matias Bidinos. Microservicio asignado: Usuarios y Roles.
+Grupo 3: Juan Encabo & Matias Bidinost. Microservicio asignado: Usuarios y Roles.
 
 ### Configuracion 
-El applicacion properties "TP4_Arquitectura_1Parte\accounts-services\src\main\resources\application.properties"
+El applicacion properties "TP4_Arquitectura_2Parte\accounts-services\src\main\resources\application.properties"
 ya se encuentra configurado para la siguiente base de datos y usuario.
 
 ### Creacion de la Base de Datos y Usuario
